@@ -4,7 +4,7 @@ WORKDIR /src
 COPY VotingData/VotingData.csproj VotingData/
 # # TODO - The following 2 lines are temporary until the nuget package is available from nuget.org
 # # Also the Microsoft.VisualStudio.Azure.SeaBreeze.Targets.0.3.0.nupkg should be copied to solution folder as a manual step
-COPY VotingData/Nuget.Config ./
+COPY VotingData/Nuget_Linux.Config ./
 COPY Microsoft.ServiceFabric.6.4.592.nupkg ./
 COPY Microsoft.ServiceFabric.Data.Interfaces.3.3.592.nupkg ./
 COPY Microsoft.ServiceFabric.Mesh.AspNetCore.Data.1.0.592-beta.nupkg ./
@@ -17,7 +17,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
 RUN dpkg-reconfigure --frontend noninteractive tzdata
 RUN apt-get install -y nuget
 
-RUN dotnet restore --configfile ./Nuget.Config VotingData/VotingData.csproj
+RUN dotnet restore --configfile ./Nuget_Linux.Config VotingData/VotingData.csproj
 COPY . .
 
 WORKDIR /src/VotingData

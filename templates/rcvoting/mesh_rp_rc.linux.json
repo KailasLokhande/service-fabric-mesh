@@ -68,7 +68,7 @@
             "name": "VotingWeb",
             "properties": {
               "description": "Service Fabric Mesh VotingWeb Service.",
-              "osType": "windows",
+              "osType": "linux",
               "codePackages": [
                 {
                   "name": "VotingWeb",
@@ -120,7 +120,7 @@
             "name": "VotingData",
             "properties": {
               "description": "Service Fabric Mesh VotingData Service.",
-              "osType": "windows",
+              "osType": "linux",
               "codePackages": [
                 {
                   "name": "VotingData",

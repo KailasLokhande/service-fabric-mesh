@@ -12,23 +12,23 @@
   "resources": [
     {
       "apiVersion": "2018-09-01-preview",
-      "name": "rcVotingAppNetwork",
+      "name": "rcVotingAppLinuxNetworkLinux",
       "type": "Microsoft.ServiceFabricMesh/networks",
       "location": "[parameters('location')]",
       "dependsOn": [],
       "properties": {
         "kind": "Local",
         "description": "Service Fabric Mesh Voting App with Reliable Collections network!",
-        "networkAddressPrefix": "3.0.0.0/22"
+        "networkAddressPrefix": "2.0.0.0/22"
       }
     },
     {
       "apiVersion": "2018-09-01-preview",
-      "name": "rcVotingAppGateway",
+      "name": "rcVotingAppLinuxGatewayLinux",
       "type": "Microsoft.ServiceFabricMesh/gateways",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "Microsoft.ServiceFabricMesh/networks/rcVotingAppNetwork"
+        "Microsoft.ServiceFabricMesh/networks/rcVotingAppLinuxNetworkLinux"
       ],
       "properties": {
         "description": "Service Fabric Mesh Gateway for HelloWorld sample.",
@@ -36,14 +36,14 @@
           "name": "Open"
         },
         "destinationNetwork": {
-          "name": "[resourceId('Microsoft.ServiceFabricMesh/networks', 'rcVotingAppNetwork')]"
+          "name": "[resourceId('Microsoft.ServiceFabricMesh/networks', 'rcVotingAppLinuxNetworkLinux')]"
         },
         "tcp": [
           {
             "name": "web",
             "port": 80,
             "destination": {
-              "applicationName": "rcVotingApp",
+              "applicationName": "rcVotingAppLinux",
               "serviceName": "VotingWeb",
               "endpointName": "VotingWebListener"
             }
@@ -53,11 +53,11 @@
     },
     {
       "apiVersion": "2018-09-01-preview",
-      "name": "rcVotingApp",
+      "name": "rcVotingAppLinux",
       "type": "Microsoft.ServiceFabricMesh/applications",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "Microsoft.ServiceFabricMesh/networks/rcVotingAppNetwork"
+        "Microsoft.ServiceFabricMesh/networks/rcVotingAppLinuxNetworkLinux"
       ],
       "properties": {
         "description": "Service Fabric Mesh Voting Application with Reliable Collections!",
@@ -68,7 +68,7 @@
             "name": "VotingWeb",
             "properties": {
               "description": "Service Fabric Mesh VotingWeb Service.",
-              "osType": "linux",
+              "osType": "windows",
               "codePackages": [
                 {
                   "name": "VotingWeb",
@@ -86,7 +86,7 @@
                     },
                     {
                       "name": "Voting_BackendHostName",
-                      "value": "votingdata.rcVotingApp"
+                      "value": "votingdata.rcVotingAppLinux"
                     },
                     {
                       "name": "Voting_BackendHostPort",
@@ -104,7 +104,7 @@
               "replicaCount": "1",
               "networkRefs": [
                 {
-                  "name": "[resourceId('Microsoft.ServiceFabricMesh/networks', 'rcVotingAppNetwork')]",
+                  "name": "[resourceId('Microsoft.ServiceFabricMesh/networks', 'rcVotingAppLinuxNetworkLinux')]",
                   "endpointRefs": [
                     {
                       "name": "VotingWebListener"
@@ -120,7 +120,7 @@
             "name": "VotingData",
             "properties": {
               "description": "Service Fabric Mesh VotingData Service.",
-              "osType": "linux",
+              "osType": "windows",
               "codePackages": [
                 {
                   "name": "VotingData",
@@ -153,7 +153,7 @@
               "replicaCount": "3",
               "networkRefs": [
                 {
-                  "name": "[resourceId('Microsoft.ServiceFabricMesh/networks', 'rcVotingAppNetwork')]",
+                  "name": "[resourceId('Microsoft.ServiceFabricMesh/networks', 'rcVotingAppLinuxNetworkLinux')]",
                   "endpointRefs": [
                     {
                       "name": "VotingDataListener"
@@ -169,7 +169,7 @@
   ],
   "outputs": {
     "publicIPAddress": {
-        "value" : "[reference('rcVotingAppGateway').ipAddress]",
+        "value" : "[reference('rcVotingAppLinuxGatewayLinux').ipAddress]",
         "type": "string"
     }
   }

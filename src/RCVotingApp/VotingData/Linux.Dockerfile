@@ -27,8 +27,7 @@ FROM build AS publish
 RUN dotnet publish VotingData.csproj -c Release -r ubuntu.16.04-x64 -o /app
 
 FROM ubuntu:16.04
-EXPOSE 20023
-EXPOSE 4020 4021
+EXPOSE 20009
 
 RUN apt-get update
 RUN apt install -y openssh-server curl libc++1 cifs-utils

@@ -5,6 +5,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <IsSFAppServiceProject>true</IsSFAppServiceProject>
     <ServerGarbageCollection>true</ServerGarbageCollection>
+    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
   </PropertyGroup>
 
   <ItemGroup>

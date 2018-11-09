@@ -2,7 +2,8 @@ FROM microsoft/dotnet:2.1-sdk-bionic AS build
 WORKDIR /src
 
 COPY rcworker/rcworker.csproj rcworker/
-# # TODO - The following 5 lines are temporary until the nuget package is available from nuget.org
+# # TODO - The following 2 lines are temporary until the nuget package is available from nuget.org
+# # Also the Microsoft.VisualStudio.Azure.SeaBreeze.Targets.0.3.0.nupkg should be copied to solution folder as a manual step
 COPY rcworker/Nuget_Linux.Config ./
 COPY Microsoft.ServiceFabric.6.4.592.nupkg ./
 COPY Microsoft.ServiceFabric.Data.Interfaces.3.3.592.nupkg ./
@@ -44,7 +45,7 @@ ENV LC_ALL=en_US.UTF-8
 
 WORKDIR /app
 COPY --from=publish /app .
-ENV OBJECT_ENABLE_ROTATION=false
+ENV OBJECT_ENABLE_ROTATION=true
 COPY rcworker/launch.sh .
 
 ENTRYPOINT ["./launch.sh"]
